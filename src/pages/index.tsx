@@ -1,5 +1,9 @@
 const Home = () => {
-  return <div>hanyunseong-log-v2</div>;
+  return (
+    <div>
+      <h1 className="text-3xl font-bold">hanyunseong-log-v2</h1>
+    </div>
+  );
 };
 
 export default Home;

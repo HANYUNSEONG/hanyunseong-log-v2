@@ -1,4 +1,5 @@
 import PostItem from "@/components/posts/PostItem";
+import { getAllPosts } from "@/utils/post";
 
 const Home = () => {
   return (
@@ -17,5 +18,13 @@ const Home = () => {
     </article>
   );
 };
+
+export async function getStaticProps() {
+  const posts = await getAllPosts();
+
+  return {
+    props: {},
+  };
+}
 
 export default Home;

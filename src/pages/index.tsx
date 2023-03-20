@@ -1,12 +1,15 @@
 import PostItem from "@/components/posts/PostItem";
 import { Post } from "@/types/post";
 import { getAllPosts } from "@/utils/post";
+import { useRouter } from "next/router";
 
 type Props = {
   posts: Post[];
 };
 
 const Home = ({ posts }: Props) => {
+  const router = useRouter();
+
   return (
     <article className="py-8">
       <div>
@@ -17,6 +20,9 @@ const Home = ({ posts }: Props) => {
           <li
             className="bg-white p-5 rounded-lg shadow-sm cursor-pointer transition hover:-translate-y-1 hover:shadow-md"
             key={post.frontMatter.slug}
+            onClick={() => {
+              router.push(`/post/${post.frontMatter.slug}`);
+            }}
           >
             <PostItem {...post} />
           </li>

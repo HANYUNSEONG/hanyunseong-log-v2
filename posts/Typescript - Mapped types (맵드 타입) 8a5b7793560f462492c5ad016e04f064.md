@@ -8,11 +8,9 @@ tags:
   - typescript
 ---
 
-# Typescript - Mapped types (맵드 타입)
+## Mapped Types - 맵드 타입
 
-# Mapped Types - 맵드 타입
-
-## Mapped Types란?
+### Mapped Types란?
 
 기존 타입을 다른 타입으로 변환하여 사용할 수 있도록 한다.
 

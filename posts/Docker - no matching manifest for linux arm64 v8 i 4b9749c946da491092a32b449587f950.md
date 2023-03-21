@@ -8,7 +8,7 @@ tags:
   - Docker
 ---
 
-# Docker - no matching manifest for linux/arm64/v8 in the manifest list entries 오류
+## Docker - no matching manifest for linux/arm64/v8 in the manifest list entries 오류
 
 ## 오류 내용
 

@@ -9,7 +9,7 @@ tags:
   - SSL
 ---
 
-# 로컬에서 nextjs ssl 환경 세팅
+## 로컬에서 nextjs ssl 환경 세팅
 
 1. [mkcert](https://github.com/FiloSottile/mkcert) 설치
 

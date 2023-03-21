@@ -6,7 +6,7 @@ type Props = {
 
 const BlogLayout = ({ children }: Props) => {
   return (
-    <div className="container mx-auto max-w-3xl px-4">
+    <div className="container mx-auto lg:px-4 max-w-full lg:max-w-3xl overflow-hidden">
       <header className="py-7">
         <Link href="/">
           <h1 className="font-bold text-2xl italic underline text-center">

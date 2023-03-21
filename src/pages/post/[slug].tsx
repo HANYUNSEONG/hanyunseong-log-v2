@@ -3,6 +3,14 @@ import { getAllPosts } from "@/utils/post";
 import { GetStaticPropsContext } from "next";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
+import toc from "remark-toc";
+import prism from "rehype-prism-plus";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkMath from "remark-math";
+import remarkSlug from "remark-slug";
+import rehypeKatex from "rehype-katex";
+import dayjs from "dayjs";
 
 type Props = {
   post: Post;
@@ -10,10 +18,22 @@ type Props = {
 };
 
 const PostPage = ({ post, mdx }: Props) => {
+  const {
+    frontMatter: { title, date },
+  } = post;
   return (
-    <div>
-      <MDXRemote {...mdx}></MDXRemote>
-    </div>
+    <article className="px-4 lg:px-9 bg-white shadow-lg divide-y">
+      <header className="flex flex-col justify-center items-center gap-y-2 py-8">
+        <h1 className="text-2xl font-bold">{title}</h1>
+        <p className="text-sm text-gray-500">
+          {dayjs(date).format("YYYY.MM.DD")}
+        </p>
+      </header>
+
+      <div className="prose max-w-none py-8">
+        <MDXRemote {...mdx}></MDXRemote>
+      </div>
+    </article>
   );
 };
 
@@ -31,7 +51,6 @@ export async function getStaticPaths() {
     fallback: "blocking",
   };
 }
-
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const { slug } = params as { slug: string };
   const posts = await getAllPosts();
@@ -43,7 +62,14 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
     };
   }
 
-  const mdxSource = await serialize(post.body);
+  const mdxSource = await serialize(post.body, {
+    mdxOptions: {
+      // TODO : plugins 쓴거 블로그에 정리하기
+      // TODO : code block style
+      remarkPlugins: [remarkMath, toc, remarkSlug, remarkGfm],
+      rehypePlugins: [rehypeKatex, prism, rehypeAutolinkHeadings],
+    },
+  });
 
   return {
     props: {

@@ -1,11 +1,7 @@
-import PostItem from "./PostItem";
-
 const PostList = () => {
   return (
     <ul>
-      <li>
-        <PostItem />
-      </li>
+      <li></li>
     </ul>
   );
 };

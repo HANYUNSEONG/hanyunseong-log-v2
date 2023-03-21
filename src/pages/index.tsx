@@ -11,7 +11,7 @@ const Home = ({ posts }: Props) => {
   const router = useRouter();
 
   return (
-    <article className="py-8">
+    <article className="py-8 px-3 lg:px-0">
       <div>
         <h1 className="text-lg border-b border-gray-200 py-4">전체 글</h1>
       </div>

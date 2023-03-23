@@ -12,6 +12,8 @@ import remarkSlug from "remark-slug";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import dayjs from "dayjs";
+import { ArticleJsonLd, NextSeo } from "next-seo";
+import { blogConfig } from "@/config";
 
 type Props = {
   post: Post;
@@ -20,21 +22,56 @@ type Props = {
 
 const PostPage = ({ post, mdx }: Props) => {
   const {
-    frontMatter: { title, date },
+    frontMatter: { title, description, date, tags, slug },
   } = post;
   return (
-    <article className="px-4 lg:px-9 bg-white shadow-lg divide-y">
-      <header className="flex flex-col justify-center items-center gap-y-2 py-8">
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <p className="text-sm text-gray-500">
-          {dayjs(date).format("YYYY.MM.DD")}
-        </p>
-      </header>
+    <>
+      <NextSeo
+        title={title}
+        description={description}
+        openGraph={{
+          title: title,
+          description: title,
+          type: "article",
+          article: {
+            publishedTime: dayjs(date).toISOString(),
+            authors: [blogConfig.url],
+            tags,
+          },
+        }}
+      />
+      <ArticleJsonLd
+        url={`${blogConfig}/${slug}`}
+        title={title}
+        description={description}
+        openGraph={{
+          title: title,
+          description: title,
+          type: "article",
+          article: {
+            publishedTime: dayjs(date).toISOString(),
+            authors: [blogConfig.url],
+            tags,
+          },
+        }}
+        images={[]}
+        datePublished={dayjs(date).toISOString()}
+        authorName={blogConfig.author.name}
+      />
 
-      <div className="prose max-w-none py-8">
-        <MDXRemote {...mdx}></MDXRemote>
-      </div>
-    </article>
+      <article className="px-4 lg:px-9 bg-white shadow-lg divide-y">
+        <header className="flex flex-col justify-center items-center gap-y-2 py-8">
+          <h1 className="text-2xl font-bold">{title}</h1>
+          <p className="text-sm text-gray-500">
+            {dayjs(date).format("YYYY.MM.DD")}
+          </p>
+        </header>
+
+        <div className="prose max-w-none py-8">
+          <MDXRemote {...mdx}></MDXRemote>
+        </div>
+      </article>
+    </>
   );
 };
 

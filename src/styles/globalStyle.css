@@ -6,10 +6,43 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-decoration: none;
   list-style: none;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: #f5f5f5;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+span.icon.icon-link {
+  display: inline-block;
+}
+
+span.icon.icon-link:before {
+  content: "#";
+}
+
+h2 > a > span.icon.icon-link {
+  width: 20px;
+  height: 20px;
+  margin-right: 2px;
+}
+
+h3 > a > span.icon.icon-link {
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
+}
+
+h4 > a > span.icon.icon-link {
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
 }

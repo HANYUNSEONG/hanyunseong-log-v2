@@ -10,6 +10,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import remarkMath from "remark-math";
 import remarkSlug from "remark-slug";
 import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
 import dayjs from "dayjs";
 
 type Props = {
@@ -67,7 +68,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
       // TODO : plugins 쓴거 블로그에 정리하기
       // TODO : code block style
       remarkPlugins: [remarkMath, toc, remarkSlug, remarkGfm],
-      rehypePlugins: [rehypeKatex, prism, rehypeAutolinkHeadings],
+      rehypePlugins: [rehypeKatex, prism, rehypeAutolinkHeadings, rehypeSlug],
     },
   });
 

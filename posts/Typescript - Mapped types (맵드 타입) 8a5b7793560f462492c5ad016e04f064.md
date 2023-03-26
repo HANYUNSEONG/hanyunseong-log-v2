@@ -93,11 +93,11 @@ type LocationValue = {
 
 ## Typescript 내장 유틸리티 타입으로 알아보기
 
-Typescript에 `[Pick](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys)`, `[Partial](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)`, `[Readonly](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype)` 3가지 유틸리티 타입으로 Mapped Types를 이해해보자
+Typescript에 [Pick](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys), [Partial](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype), [Readonly](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype) 3가지 유틸리티 타입으로 Mapped Types를 이해해보자
 
 ### Pick
 
-`[Pick](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys)`은 정의되어 있는 타입에서 키를 선택하여 또 다른 타입을 구성할 수 있는 유틸리티 타입이다.
+[Pick](https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys)은 정의되어 있는 타입에서 키를 선택하여 또 다른 타입을 구성할 수 있는 유틸리티 타입이다.
 
 ```tsx
 type Pick<T, K extends keyof T> = {
@@ -107,7 +107,7 @@ type Pick<T, K extends keyof T> = {
 
 ### Partial
 
-`[Partial](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)`은 정의되어 있는 타입을 모두 다 옵셔널하게 만들어주는 유틸리티 타입이다.
+[Partial](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype)은 정의되어 있는 타입을 모두 다 옵셔널하게 만들어주는 유틸리티 타입이다.
 
 ```tsx
 type Partial<T> = {
@@ -117,7 +117,7 @@ type Partial<T> = {
 
 ### Readonly
 
-`[Readonly](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype)`는 정의되어 있는 타입을 모두 다 readonly 상태로 만들어주는 유틸리티 타입이다.
+[Readonly](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype)는 정의되어 있는 타입을 모두 다 readonly 상태로 만들어주는 유틸리티 타입이다.
 
 ```tsx
 type Readonly<T> = {

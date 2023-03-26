@@ -14,6 +14,7 @@ import rehypeSlug from "rehype-slug";
 import dayjs from "dayjs";
 import { ArticleJsonLd, NextSeo } from "next-seo";
 import { blogConfig } from "@/config";
+import rehypeHighlight from "rehype-highlight";
 
 type Props = {
   post: Post;
@@ -89,6 +90,7 @@ export async function getStaticPaths() {
     fallback: "blocking",
   };
 }
+
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const { slug } = params as { slug: string };
   const posts = await getAllPosts();
@@ -102,10 +104,14 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 
   const mdxSource = await serialize(post.body, {
     mdxOptions: {
-      // TODO : plugins 쓴거 블로그에 정리하기
-      // TODO : code block style
       remarkPlugins: [remarkMath, toc, remarkSlug, remarkGfm],
-      rehypePlugins: [rehypeKatex, prism, rehypeAutolinkHeadings, rehypeSlug],
+      rehypePlugins: [
+        rehypeKatex,
+        prism,
+        rehypeAutolinkHeadings,
+        rehypeSlug,
+        rehypeHighlight,
+      ],
     },
   });
 

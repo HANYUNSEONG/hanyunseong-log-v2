@@ -13,7 +13,7 @@ tags:
 
 1. [mkcert](https://github.com/FiloSottile/mkcert) 설치
 
-```powershell
+```sh
 brew install mkcert
 mkcert --install
 ```

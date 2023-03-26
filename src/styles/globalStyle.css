@@ -6,7 +6,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  list-style: none;
 }
 
 html {
@@ -23,6 +22,7 @@ a {
 
 span.icon.icon-link {
   display: inline-block;
+  color: var(--tw-prose-headings);
 }
 
 span.icon.icon-link:before {

@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import { ArticleJsonLd, NextSeo } from "next-seo";
 import { blogConfig } from "@/config";
 import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/night-owl.css";
 
 type Props = {
   post: Post;
@@ -25,14 +26,18 @@ const PostPage = ({ post, mdx }: Props) => {
   const {
     frontMatter: { title, description, date, tags, slug },
   } = post;
+  const { title: blogTitle } = blogConfig;
+
+  const seoTitle = `${title} - ${blogTitle}`;
+
   return (
     <>
       <NextSeo
-        title={title}
+        title={seoTitle}
         description={description}
         openGraph={{
-          title: title,
-          description: title,
+          title: seoTitle,
+          description: description,
           type: "article",
           article: {
             publishedTime: dayjs(date).toISOString(),
@@ -47,7 +52,7 @@ const PostPage = ({ post, mdx }: Props) => {
         description={description}
         openGraph={{
           title: title,
-          description: title,
+          description: description,
           type: "article",
           article: {
             publishedTime: dayjs(date).toISOString(),

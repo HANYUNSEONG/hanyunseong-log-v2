@@ -6,9 +6,11 @@ import { defaultSEO } from "@/config";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <BlogLayout>
+    <>
       <DefaultSeo {...defaultSEO} />
-      <Component {...pageProps} />
-    </BlogLayout>
+      <BlogLayout>
+        <Component {...pageProps} />
+      </BlogLayout>
+    </>
   );
 }

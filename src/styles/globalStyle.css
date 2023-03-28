@@ -46,3 +46,8 @@ h4 > a > span.icon.icon-link {
   height: 16px;
   margin-right: 2px;
 }
+
+code.hljs {
+  background-color: transparent;
+  padding: 0 !important;
+}

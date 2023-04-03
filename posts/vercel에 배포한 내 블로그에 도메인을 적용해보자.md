@@ -5,8 +5,8 @@ date: 2023-03-27 23:58:57
 published: true
 slug: register-odmain-in-my-blog
 tags:
-  - vercel
-  - google domain
+  - Vercel
+  - google-domain
 ---
 
 들어가기에 앞서 도메인을 적용하려면 도메인을 소유하고 있어야 한다.  

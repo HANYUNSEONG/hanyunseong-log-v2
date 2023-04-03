@@ -16,6 +16,14 @@ import { ArticleJsonLd, NextSeo } from "next-seo";
 import { blogConfig } from "@/config";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/night-owl.css";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+const UtterancesComments = dynamic(
+  () => import("@/components/UtterancesComments"),
+  {
+    ssr: false,
+  }
+);
 
 type Props = {
   post: Post;
@@ -26,7 +34,11 @@ const PostPage = ({ post, mdx }: Props) => {
   const {
     frontMatter: { title, description, date, tags, slug },
   } = post;
-  const { title: blogTitle } = blogConfig;
+  const {
+    title: blogTitle,
+    contacts: { email },
+    projectUrl,
+  } = blogConfig;
 
   const seoTitle = `${title} - ${blogTitle}`;
 
@@ -76,6 +88,29 @@ const PostPage = ({ post, mdx }: Props) => {
         <div className="prose max-w-none py-8">
           <MDXRemote {...mdx}></MDXRemote>
         </div>
+
+        <div className="py-4">
+          <UtterancesComments />
+        </div>
+
+        <footer className="py-5">
+          <p className="text-[10px] md:text-xs">
+            잘못된 내용이 있는 경우{" "}
+            <Link
+              href={`${projectUrl}/issues`}
+              className="text-blue-500"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Github issues
+            </Link>{" "}
+            혹은{" "}
+            <Link href={`mailto:${email}`} className="text-blue-500">
+              이메일
+            </Link>
+            로 피드백 부탁드립니다!
+          </p>
+        </footer>
       </article>
     </>
   );

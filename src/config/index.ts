@@ -8,6 +8,11 @@ export const blogConfig = {
   author: {
     name: "HANYUNSEONG",
   },
+  contacts: {
+    email: "hanyunseong.dev@gmail.com",
+    github: "https://github.com/HANYUNSEONG",
+  },
+  projectUrl: "https://github.com/HANYUNSEONG/hanyunseong-log-v2",
 };
 
 export const defaultSEO: DefaultSeoProps = {

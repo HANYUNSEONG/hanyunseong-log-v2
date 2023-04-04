@@ -38,7 +38,7 @@ const TagsPage = ({ posts, tags }: Props) => {
               key={tag}
               className={`bg-white rounded px-2 py-1 shadow-[0_5px_0px_0_#6b7280] border border-gray-500 transition cursor-pointer ${
                 isSelected
-                  ? "skew-y-2 shadow-[-2.5px_2.5px_0px_0_#6b7280] translate-y-1"
+                  ? "skew-y-2 shadow-[-2.5px_2.5px_0px_0_#6b7280]"
                   : "hover:shadow-[0_1px_0px_0_#6b7280] hover:translate-y-1"
               }`}
               onClick={() => onSelectTag(tag)}

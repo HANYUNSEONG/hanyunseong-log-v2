@@ -9,6 +9,9 @@ const generateSiteMap = (slugList: string[]) => {
      <url>
        <loc>${ROOT_URL}</loc>
      </url>
+     <url>
+       <loc>${ROOT_URL}/tags</loc>
+     </url>
      ${slugList
        .map((slug) => {
          return `

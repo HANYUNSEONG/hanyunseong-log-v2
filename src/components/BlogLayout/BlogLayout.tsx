@@ -13,12 +13,17 @@ const BlogLayout = ({ children }: Props) => {
 
   return (
     <div className="container mx-auto lg:px-4 max-w-full lg:max-w-3xl overflow-hidden">
-      <header className="py-7 flex flex-col gap-y-2 items-center">
+      <header className="py-7 flex gap-y-2 justify-between items-center">
         <Link href="/">
           <h1 className="font-bold text-2xl italic underline text-center">
             {title}
           </h1>
         </Link>
+        <ul>
+          <li className="text-sm">
+            <Link href="/tags">Tags</Link>
+          </li>
+        </ul>
       </header>
       <main>{children}</main>
       <footer className="flex justify-center items-center gap-x-2 py-8">

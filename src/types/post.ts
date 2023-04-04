@@ -12,3 +12,5 @@ export interface Post {
   body: string;
   path: string;
 }
+
+export type TagWithCount = Record<string, number>;

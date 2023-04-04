@@ -36,10 +36,10 @@ const TagsPage = ({ posts, tags }: Props) => {
           return (
             <li
               key={tag}
-              className={`bg-white rounded px-2 py-1 shadow-[0_5px_0px_0_#6b7280] border border-gray-500 transition cursor-pointer ${
+              className={`bg-white rounded px-2 py-1 border border-gray-500 transition cursor-pointer ${
                 isSelected
-                  ? "skew-y-2 shadow-[-2.5px_2.5px_0px_0_#6b7280]"
-                  : "hover:shadow-[0_1px_0px_0_#6b7280] hover:translate-y-1"
+                  ? "skew-y-2 shadow-[-2px_2px_0px_0_#6b7280] translate-y-0.5"
+                  : "shadow-[0_5px_0px_0_#6b7280] hover:shadow-[0_1px_0px_0_#6b7280] hover:translate-y-1"
               }`}
               onClick={() => onSelectTag(tag)}
             >

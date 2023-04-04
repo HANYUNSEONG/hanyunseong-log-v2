@@ -17,13 +17,7 @@ const Home = ({ posts }: Props) => {
       </div>
       <ul className="mt-5 flex flex-col gap-y-4">
         {posts?.map((post) => (
-          <li
-            className="bg-white p-5 rounded-lg shadow-sm cursor-pointer transition hover:-translate-y-1 hover:shadow-md"
-            key={post.frontMatter.slug}
-            onClick={() => {
-              router.push(`/post/${post.frontMatter.slug}`);
-            }}
-          >
+          <li key={post.frontMatter.slug}>
             <PostItem {...post} />
           </li>
         ))}

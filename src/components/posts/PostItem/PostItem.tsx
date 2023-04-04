@@ -1,11 +1,18 @@
 import { Post } from "@/types/post";
 import dayjs from "dayjs";
+import { useRouter } from "next/router";
 
 const PostItem = ({ frontMatter }: Post) => {
-  const { title, description, date, tags } = frontMatter;
+  const router = useRouter();
+  const { title, description, date, tags, slug } = frontMatter;
 
   return (
-    <article className="flex justify-end align-center gap-x-4 flex-1 gap-y-2 flex-col">
+    <article
+      className="flex justify-end align-center gap-x-4 flex-1 gap-y-2 flex-col bg-white p-5 rounded-lg shadow-sm cursor-pointer transition hover:-translate-y-1 hover:shadow-md"
+      onClick={() => {
+        router.push(`/post/${slug}`);
+      }}
+    >
       <h2 className="font-bold text-xl">{title}</h2>
       <p className="text-sm">{description}</p>
       <ul className="flex gap-1">

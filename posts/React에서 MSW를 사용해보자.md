@@ -188,6 +188,16 @@ prepare().then(() => {
 실행하면 개발자 도구 콘솔에 아래와 같이 뜬다.
 ![img-1.png](/post/react-use-msw/img-1.png)
 
+### +추가 Next.js에서 실행
+`_app.ts`
+```ts
+const isDev = process.env.NODE_ENV === 'development';
+if (isDev && isClient()) {
+  const { worker } = require('../mocks/browser');
+  worker.start();
+}
+```
+
 ## 작동 테스트
 
 이제 작동하는지 한번 테스트 해보자  

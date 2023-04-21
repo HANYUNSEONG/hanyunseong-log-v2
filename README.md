@@ -1,5 +1,8 @@
 <div align="center">
   <img src="./assets/logo.png" width="200px" />
+  <div>
+    <a href="./README.ko.md">[한국어]</a>
+  </div>
 </div>
 
 # hanyunseong-log

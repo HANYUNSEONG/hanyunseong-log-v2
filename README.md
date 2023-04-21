@@ -19,7 +19,7 @@ Next.js static blog using markdown file.
 
 😀 Information
 
-- You can customize blog and SEO information at 'config/index.ts'.
+- You can customize blog and SEO information at `config/index.ts`.
 
 ### Additional upcoming features
 

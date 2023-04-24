@@ -4,7 +4,7 @@
 
 # hanyunseong-log
 
-마크다운을 이영한 Next.js 정적 블로그입니다.
+마크다운을 이용한 Next.js 정적 블로그입니다.
 
 ## Features
 

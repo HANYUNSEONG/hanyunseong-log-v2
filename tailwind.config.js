@@ -17,11 +17,7 @@ module.exports = {
               color: theme("colors.sky.500"),
               backgroundColor: theme("colors.gray.100"),
               padding: "0.2rem 0.25rem",
-            },
-            "h1,h2,h3,h4,h5": {
-              code: {
-                backgroundColor: "transparent",
-              },
+              borderRadius: "0.375rem",
             },
             "ul li:before": {
               backgroundColor: theme("colors.gray.500"),

@@ -22,6 +22,14 @@ module.exports = {
             "ul li:before": {
               backgroundColor: theme("colors.gray.500"),
             },
+            "p > img": {
+              margin: "0",
+              "& + em": {
+                display: "block",
+                textAlign: "center",
+                fontSize: "0.75rem",
+              },
+            },
           },
         },
       }),

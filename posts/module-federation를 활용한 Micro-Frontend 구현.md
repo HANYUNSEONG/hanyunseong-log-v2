@@ -5,7 +5,7 @@ date: 2024-06-05 09:35:47
 published: true
 slug: micro-frontend-by-nextjs-module-federation
 tags:
-  - nextjs
+  - Next.js
   - module-federation
   - micro-frontend
   - msa

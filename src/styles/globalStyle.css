@@ -51,3 +51,15 @@ code.hljs {
   background-color: transparent;
   padding: 0 !important;
 }
+
+.prose
+  :where(blockquote p:first-of-type):not(
+    :where([class~="not-prose"] *)
+  )::before {
+  content: "";
+}
+
+.prose :where(code):not(:where([class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"] *))::after {
+  content: "";
+}

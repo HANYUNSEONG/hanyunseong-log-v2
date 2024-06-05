@@ -15,7 +15,7 @@ const PostItem = ({ frontMatter }: Post) => {
     >
       <h2 className="font-bold text-xl">{title}</h2>
       <p className="text-sm">{description}</p>
-      <ul className="flex gap-1">
+      <ul className="flex gap-1 flex-wrap">
         {tags.map((tag) => (
           <li key={`${title}-${tag}`}>
             <span className="p-1.5 text-xs rounded bg-slate-500 text-white">

@@ -9,8 +9,6 @@ tags:
   - module-federation
   - micro-frontend
   - msa
-  - 마이크로 프론트엔드
-  - 마이크로서비스
   - module-federation/nextjs-mf
 ---
 

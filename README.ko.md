@@ -49,9 +49,9 @@ tags:
 2. 이 레포를 [Fork](https://github.com/hanyunseong/hanyunseong-log-v2/fork)합니다.
 3. 본인의 정보에 맞게 config를 수정합니다.
 
-## Tips
+## 환경변수
 
-- 마크다운에서 테이블을 사용할 때 [markdown-table](https://www.jyangca.com/) 이곳을 이용하면 조금 더 편리합니다.
+- NEXT_PUBLIC_GOOGLE_ANALYTICS: Google analytics id
 
 ## Bug reporting
 

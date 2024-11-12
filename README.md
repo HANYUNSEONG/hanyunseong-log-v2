@@ -52,9 +52,9 @@ tags:
 2. [Fork](https://github.com/hanyunseong/hanyunseong-log-v2/fork) this repo.
 3. Modify config to your information
 
-## Tips
+## Environment variable
 
-- Writing Table using [markdown-table](https://www.jyangca.com/)
+- NEXT_PUBLIC_GOOGLE_ANALYTICS: Google analytics id
 
 ## Bug reporting
 

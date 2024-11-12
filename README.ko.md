@@ -49,7 +49,7 @@ tags:
 2. 이 레포를 [Fork](https://github.com/hanyunseong/hanyunseong-log-v2/fork)합니다.
 3. 본인의 정보에 맞게 config를 수정합니다.
 
-## 환경변수
+## Environment Variable
 
 - NEXT_PUBLIC_GOOGLE_ANALYTICS: Google analytics id
 

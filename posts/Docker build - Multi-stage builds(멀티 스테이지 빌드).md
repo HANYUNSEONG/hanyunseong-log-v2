@@ -10,7 +10,7 @@ tags:
 
 ## 목표
 
-- **Multi-stage builds(**멀티 스테이지 빌드)가 무엇인지 알아본다.
+- **Multi-stage builds(멀티 스테이지 빌드)**가 무엇인지 알아본다.
 - 멀티 스테이지 빌드를 사용해보고 적용 전/후의 이미지 크기를 비교해본다.
 
 ## **Multi-stage builds란?**

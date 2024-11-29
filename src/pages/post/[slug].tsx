@@ -16,6 +16,7 @@ import { ArticleJsonLd, NextSeo } from "next-seo";
 import { blogConfig } from "@/config";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/night-owl.css";
+import langDockerfile from "highlight.js/lib/languages/dockerfile";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 const UtterancesComments = dynamic(
@@ -131,6 +132,13 @@ export async function getStaticPaths() {
   };
 }
 
+const languages = {
+  dockerfile: langDockerfile,
+};
+const aliases = {
+  docker: "dockerfile",
+};
+
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const { slug } = params as { slug: string };
   const posts = await getAllPosts();
@@ -150,7 +158,12 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
         prism,
         rehypeAutolinkHeadings,
         rehypeSlug,
-        rehypeHighlight,
+        () => {
+          return rehypeHighlight({
+            languages,
+            aliases,
+          });
+        },
       ],
     },
   });

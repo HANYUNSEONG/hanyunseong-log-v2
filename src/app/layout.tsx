@@ -1,14 +1,22 @@
-import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { siteConfig } from "@/config/site";
 
 const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
+
+// scripts/subset-font.mjs가 dev/build 전에 생성한다.
+const pretendard = localFont({
+  src: "../fonts/PretendardSubset.woff2",
+  weight: "400 700",
+  display: "swap",
+  variable: "--font-pretendard",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -45,7 +53,7 @@ type Props = {
 
 const RootLayout = ({ children }: Props) => {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko" className={pretendard.variable} suppressHydrationWarning>
       <body className="font-sans">
         <ThemeProvider attribute="class" disableTransitionOnChange>
           <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-5 sm:px-8">

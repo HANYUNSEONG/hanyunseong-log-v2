@@ -55,6 +55,8 @@ front matter 형식이 잘못되면 빌드가 실패합니다.
 
 이미지와 영상은 `public/post/<slug>/`에 두고 `/post/<slug>/파일명`으로 참조합니다.
 
+웹폰트(Pretendard)는 글과 UI에서 쓰는 글자만 담아 `pnpm dev`/`pnpm build` 때마다 새로 만듭니다. `pnpm dev` 중에 새 글자를 쓰면 재시작 전까지는 기본 폰트로 보입니다.
+
 ## 🚀 Getting Started
 
 1. 이 레포에 star를 주세요 😄

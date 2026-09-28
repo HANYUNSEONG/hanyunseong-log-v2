@@ -68,7 +68,7 @@ pnpm install
 pnpm dev
 ```
 
-Node.js 20.9 이상이 필요합니다.
+Node.js 24가 필요합니다.
 
 ## Environment Variable
 

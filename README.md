@@ -71,7 +71,7 @@ pnpm install
 pnpm dev
 ```
 
-Requires Node.js 20.9 or later.
+Requires Node.js 24.
 
 ## Environment variable
 

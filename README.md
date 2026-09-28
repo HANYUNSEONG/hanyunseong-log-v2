@@ -58,6 +58,8 @@ The build fails if the front matter is invalid.
 
 Put images and videos in `public/post/<slug>/` and reference them as `/post/<slug>/<file>`.
 
+The web font (Pretendard) is subset to the characters used in posts and UI on every `pnpm dev`/`pnpm build`. Characters added while `pnpm dev` is running render in the fallback font until you restart it.
+
 ## 🚀 Getting Started
 
 1. Star this repo 😄

@@ -7,50 +7,69 @@
 
 # hanyunseong-log
 
-Next.js static blog using markdown file.
+Next.js static blog written in MDX.
 
 ## Features
 
 📝 Posts
 
-- Writing posts using markdown, You can commit and post on GitHub.
-- Comment function using utterances.
+- One `posts/<slug>.mdx` file is one post. Commit it and it's published.
+- Build-time syntax highlighting with Shiki (light/dark themes)
+- Table of contents and per-tag post lists
+- Comments powered by Giscus
+
+🌗 Theme
+
+- Light/dark mode that follows the system setting
 
 🔎 SEO
 
-- Automatically create sitemap.
+- Generates sitemap, robots.txt and RSS feed
+- Generates an Open Graph image for every post
+- JSON-LD (BlogPosting) structured data
 
 😀 Information
 
-- You can customize blog and SEO information at `config/index.ts`.
+- Customize blog information and comments at `src/config/site.ts`.
 
-### Additional upcoming features
+## Writing a post
 
-- [ ] About page
-- [ ] Resume, Portfolios
-- [ ] Plugins
-
-## Frontmatter
-
-[What is it?](https://mdxjs.com/guides/frontmatter/)
+Create `posts/<slug>.mdx`. The file name becomes the URL (`/post/<slug>`).
 
 ```md
 ---
 title: 구글에서 도메인을 구입해보자
 description: Google domain으로 내 도메인 구입하기
 date: 2023-03-27 22:16:48
-published: true
-slug: buy-domain-in-google-domain
 tags:
   - google-domain
 ---
 ```
 
+| Field       | Required | Description                                       |
+| ----------- | -------- | ------------------------------------------------- |
+| title       | O        | Post title                                        |
+| description | O        | Summary used in lists and SEO                     |
+| date        | O        | `YYYY-MM-DD HH:mm:ss`, interpreted as KST         |
+| tags        |          | List of tags                                      |
+| published   |          | Set to `false` to hide the post. Default `true`   |
+
+The build fails if the front matter is invalid.
+
+Put images and videos in `public/post/<slug>/` and reference them as `/post/<slug>/<file>`.
+
 ## 🚀 Getting Started
 
 1. Star this repo 😄
 2. [Fork](https://github.com/hanyunseong/hanyunseong-log-v2/fork) this repo.
-3. Modify config to your information
+3. Modify `src/config/site.ts` to your information. Get the comment settings from [giscus.app](https://giscus.app).
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Requires Node.js 20.9 or later.
 
 ## Environment variable
 

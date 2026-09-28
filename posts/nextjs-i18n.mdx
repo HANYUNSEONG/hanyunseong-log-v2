@@ -1,0 +1,374 @@
+---
+title: Next.js에서 다국어 적용하기
+description: next-i18next를 이용해서 다국어를 적용해보아요
+date: 2022-10-07 11:00:19
+published: true
+tags:
+  - Next.js
+  - i18n
+  - next-i18next
+---
+
+## 사전 준비
+
+### 📚 사용한 라이브러리
+
+- next-i18next
+- react-i18next
+- google-spreadsheet
+
+### ⚙️ next.config
+
+- `next-i18next.config.js` 추가
+
+  ```jsx
+  module.exports = {
+    i18n: {
+      defaultLocale: "ko",
+      locales: ["ko", "en"],
+
+      /** true로 설정 시 Next.js에서 자동으로 접속한 사용자의 로케일로 표시함 */
+      localeDetection: false,
+
+      pages: {
+        "*": ["common"],
+      },
+    },
+  };
+  ```
+
+- `next.config.js` 적용
+
+  ```jsx
+  const { i18n } = require("./next-i18next.config");
+
+  const nextConfig = {
+    // ...
+    i18n,
+  };
+  ```
+
+### 🧲 구글 스프레드 시트에서 번역 파일 가져오기
+
+1. 구글 스프레드 시트 API 인증
+
+[google-spreadsheet - Google Spreadsheets API -- simple interface to read/write data and manage sheets](https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account)
+
+1. 변환 소스 작성
+
+- `getLocaleData.js`
+
+  ```jsx
+  const { GoogleSpreadsheet } = require("google-spreadsheet");
+  const fs = require("fs");
+  const secret = require("config 파일 경로");
+
+  const doc = new GoogleSpreadsheet("sheetId");
+
+  const init = async () => {
+    await doc.useServiceAccountAuth({
+      client_email: secret.client_email,
+      private_key: secret.private_key,
+    });
+  };
+
+  const read = async () => {
+    await doc.loadInfo();
+    const sheet = doc.sheetsByIndex[0];
+
+    await sheet.loadHeaderRow();
+    const colTitles = sheet.headerValues;
+    const rows = await sheet.getRows();
+
+    let result = {};
+
+    rows.map((row) => {
+      colTitles.slice(1).forEach((title) => {
+        result[title] = result[title] || [];
+        const key = row[colTitles[0]];
+        result = {
+          ...result,
+          [title]: {
+            ...result[title],
+            [key]: row[title] !== "" ? row[title] : undefined,
+          },
+        };
+      });
+    });
+
+    return result;
+  };
+
+  const write = (data) => {
+    Object.keys(data).forEach((key) => {
+      fs.writeFile(
+        `./public/locales/${key}/common.json`,
+        JSON.stringify(data[key], null, 2),
+        (err) => {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    });
+  };
+
+  init()
+    .then(() => read())
+    .then((data) => write(data))
+    .catch((err) => console.log(err));
+  ```
+
+### 👂 next-i18next.d.ts
+
+> 개발 시 편의성 향상을 위한 세팅
+
+- `tsconfig.json` → public 폴더 alias 추가
+
+  ```jsx
+  {
+    "compilerOptions": {
+      // ...
+      "typeRoots": ["@types"],
+      "paths": {
+        "@public/*": ["../public/*"]
+      }
+    }
+   // ...
+  }
+  ```
+
+- `src/@types/next-i18next.d.ts`
+
+  ```tsx
+  import "react-i18next";
+  import common from "@public/locales/ko/common.json";
+
+  declare module "react-i18next" {
+    interface CustomTypeOptions {
+      defaultNS: "common";
+      resources: {
+        common: typeof common;
+      };
+    }
+  }
+  ```
+
+---
+
+## 적용
+
+### 🚀 페이지에 적용
+
+먼저 `_app`을 `appWithTranslation`로 감싸준다.
+
+```jsx
+// _app.tsx
+
+...
+
+export default wrapper.withRedux(appWithTranslation(App));
+```
+
+그리고 각 페이지에서 `getStaticProps` 혹은 `getServerSideProps`를 추가해준다.
+
+- 자주 사용하는 로직 유틸 함수 생성 → `utils/i18n.ts`
+
+  ```tsx
+  import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+  import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
+
+  export const makeLocaleProps = async (
+    context: GetServerSidePropsContext | GetStaticPropsContext,
+    ns = ["common"]
+  ) => {
+    const { locale } = context;
+
+    if (locale) {
+      return {
+        ...(await serverSideTranslations(locale, ns)),
+      };
+    }
+
+    return {};
+  };
+
+  export const makeStaticProps =
+    (ns = ["common"]) =>
+    async (context: GetServerSidePropsContext | GetStaticPropsContext) => {
+      return {
+        props: {
+          ...(await makeLocaleProps(context, ns)),
+        },
+      };
+    };
+  ```
+
+- getStaticProps 추가하기
+
+  ```jsx
+  // ...
+
+  export const getStaticProps = makeStaticProps();
+
+  export default Page;
+  ```
+
+- getServerSideProps 추가하기
+
+  ```jsx
+  export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const props = {
+      ...(await makeLocaleProps(context)),
+    };
+
+    // ...
+
+    return {
+      props,
+    };
+  }
+
+  export default Page;
+  ```
+
+---
+
+## 사용
+
+```jsx
+import { useTranslation } from 'next-i18next';
+
+const Component = () => {
+ const { t } = useTranslation();
+
+ return {
+  <section>
+   <h1>{t("hello")}</h1>
+  </section>
+ }
+}
+```
+
+`t` 함수를 사용해서 다국어 기능을 사용할 수 있다.
+
+### 기본
+
+```jsx
+// { "안녕하세요": "안녕하세요" }
+<p>{t("common:안녕하세요")}</p>
+```
+
+### 변수 사용
+
+```jsx
+// { "이름": "저는 {{name}}입니다." }
+<p>{t("home:이름", { name })}</p>
+```
+
+### 컴포넌트 외부에서 사용
+
+```tsx
+import { i18n, useTranslation } from "next-i18next";
+
+const outsideI18n = () => {
+  return i18n?.t("안녕하세요");
+};
+
+const Component = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <h1>{t("안녕하세요")}</h1>
+      <h1>{outsideI18n()}</h1>
+    </div>
+  );
+};
+
+export default Component;
+```
+
+### 리스트
+
+```jsx
+// { "항목": ["오늘 점심은 무엇을 먹을까요", "오늘 저녁을 무엇을 먹을까요?"] }
+{
+  (t("home:항목", { returnObjects: true }) as [])?.map((elem) => (
+    <li key={elem}>{elem}</li>
+  ));
+}
+```
+
+### Trans component
+
+간혹 텍스트 중간에 스타일이 다른 경우 `안녕하세요 {{항공사}}입니다.` 를 처리할 수 있다.
+
+```jsx
+import { useTranslation, Trans } from 'next-i18next';
+
+const Component = () => {
+ const { t } = useTranslation();
+ const airlineName = getAirlineName();
+
+ return {
+  <section>
+   <Trans t={t} i18key="항공사_인사" values={{
+    airlineName,
+   }}>
+    안녕하세요 <b>{airlineName}</b> 입니다.
+   </Trans>
+  </section>
+ }
+}
+```
+
+### 라우팅
+
+```jsx
+export default function Home() {
+  const router = useRouter();
+  const { pathname, asPath, query } = router;
+
+  return (
+    <select
+      defaultValue={router.locale}
+      onChange={(e) =>
+        router.push({ pathname, query }, asPath, { locale: e.target.value })
+      }
+    >
+      <option value="ko">{t("common:한국어")}</option>
+      <option value="en">{t("common:영어")}</option>
+      <option value="ja">{t("common:일본어")}</option>
+    </select>
+  );
+}
+```
+
+### 파일 분리
+
+> 만약 namespace를 분리해서 사용한다면 아래처럼 가져올 namespace를 지정해서 그 번역본만 가져올 수 있다.
+
+```jsx
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
+  if (locale) {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ["home"])),
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
+```
+
+→ `serverSideTranslations` 두번째 인자에 namespace를 넣어준다.
+
+## 참고
+
+[https://github.com/i18next/next-i18next](https://github.com/i18next/next-i18next)
+
+[https://theoephraim.github.io/node-google-spreadsheet/#/](https://theoephraim.github.io/node-google-spreadsheet/#/)

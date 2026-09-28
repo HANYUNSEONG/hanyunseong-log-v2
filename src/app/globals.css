@@ -1,0 +1,105 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth bg-white text-zinc-800 antialiased dark:bg-zinc-950 dark:text-zinc-200;
+  }
+
+  ::selection {
+    @apply bg-blue-200 dark:bg-blue-900;
+  }
+}
+
+/*
+ * `prose prose-zinc dark:prose-invert`와 함께 쓴다.
+ * typography 규칙은 같은 layer에서 뒤에 나오므로, 덮어쓸 때는 우선순위가 0인
+ * :where() 대신 :is()나 &.prose로 우선순위를 높인다.
+ */
+@utility prose-blog {
+  --inline-code-bg: var(--color-zinc-100);
+  --code-block-bg: var(--color-zinc-50);
+  --code-block-border: var(--color-zinc-200);
+
+  &.prose {
+    --tw-prose-links: var(--color-blue-600);
+  }
+
+  &.prose:where(.dark, .dark *) {
+    --tw-prose-links: var(--color-blue-400);
+  }
+
+  &:where(.dark, .dark *) {
+    --inline-code-bg: var(--color-zinc-800);
+    --code-block-bg: var(--color-zinc-900);
+    --code-block-border: var(--color-zinc-800);
+  }
+
+  & a {
+    @apply font-medium underline-offset-4 hover:underline;
+    text-decoration-line: none;
+  }
+
+  & :where(h2, h3, h4) {
+    @apply scroll-mt-8;
+  }
+
+  & .heading-anchor {
+    @apply ml-2 font-normal text-zinc-400 opacity-0 transition-opacity dark:text-zinc-500;
+  }
+
+  & :where(h2, h3, h4):hover .heading-anchor {
+    @apply opacity-100;
+  }
+
+  & :is(:not(pre) > code) {
+    @apply rounded-md px-1.5 py-0.5 font-normal;
+    background-color: var(--inline-code-bg);
+  }
+
+  & :is(:not(pre) > code)::before,
+  & :is(:not(pre) > code)::after {
+    content: none;
+  }
+
+  & :is(blockquote p:first-of-type)::before,
+  & :is(blockquote p:last-of-type)::after {
+    content: none;
+  }
+
+  & pre.shiki {
+    @apply rounded-lg border text-[0.8125rem] leading-relaxed;
+    border-color: var(--code-block-border);
+    background-color: var(--code-block-bg) !important;
+  }
+
+  & img,
+  & video {
+    @apply mx-auto h-auto max-w-full rounded-lg border border-zinc-200 dark:border-zinc-800;
+  }
+
+  /* ![이미지](...) 바로 뒤의 *설명*을 캡션으로 사용한다. */
+  & p > img + em,
+  & p > img + br + em {
+    @apply mt-2 block text-center text-xs text-(--tw-prose-captions);
+  }
+}
+
+/* https://shiki.style/guide/dual-themes#class-based-dark-mode */
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}

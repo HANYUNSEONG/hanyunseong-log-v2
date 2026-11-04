@@ -7,6 +7,7 @@ export const siteConfig = {
     name: "HANYUNSEONG",
     email: "hanyunseong.dev@gmail.com",
     github: "https://github.com/HANYUNSEONG",
+    linkedin: "https://www.linkedin.com/in/yunseong-han-8753a0245",
   },
   repository: "https://github.com/HANYUNSEONG/hanyunseong-log-v2",
   // https://giscus.app 에서 저장소를 입력하면 확인할 수 있습니다.

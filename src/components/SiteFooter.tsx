@@ -19,6 +19,16 @@ const SiteFooter = () => {
         </li>
         <li>
           <a
+            href={siteConfig.author.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-zinc-900 dark:hover:text-zinc-100"
+          >
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a
             href="/rss.xml"
             className="hover:text-zinc-900 dark:hover:text-zinc-100"
           >
